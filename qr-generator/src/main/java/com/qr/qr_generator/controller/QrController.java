@@ -71,7 +71,7 @@ public class QrController {
 	    Files.write(pdfPath, file.getBytes());
 
 	    // Generar QR apuntando a la URL del PDF (simulada aquí como local)
-	    String pdfUrl = "https://qrback-2.onrender.com/api/pdf/" + pdfName;
+	    String pdfUrl = "http://localhost:8081/api/pdf/" + pdfName;
 	    QrCode qrCode = qrService.generateAndSaveQr(pdfUrl, "PDF");
 
 	    String imageUrl = "https://qrback-2.onrender.com/api/qr/view/" + qrCode.getId();
@@ -103,7 +103,7 @@ public class QrController {
 	}
 
 
-	@CrossOrigin(origins = "https://www.misterqrgenerator.com")
+	@CrossOrigin(origins = "https://misterqrgenerator.com")
 	@GetMapping(value = "/view/{id}", produces = MediaType.IMAGE_PNG_VALUE)
 	public ResponseEntity<byte[]> getQrById(@PathVariable UUID id) throws IOException {
 	    QrCode qrCode = qrCodeRepository.findById(id).orElse(null);
