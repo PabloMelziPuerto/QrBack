@@ -9,7 +9,7 @@ public class CORSConfig  implements WebMvcConfigurer {
 	@Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // o "/api/**"
-                .allowedOrigins("http://localhost:3000") // dominio de tu React
+                .allowedOrigins("http://www.misterqrgenerator.com") // dominio de tu React
                 .allowedMethods("GET", "POST");
     }
 }

@@ -103,7 +103,7 @@ public class QrController {
 	}
 
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = "http://www.misterqrgenerator.com")
 	@GetMapping(value = "/view/{id}", produces = MediaType.IMAGE_PNG_VALUE)
 	public ResponseEntity<byte[]> getQrById(@PathVariable UUID id) throws IOException {
 	    QrCode qrCode = qrCodeRepository.findById(id).orElse(null);
