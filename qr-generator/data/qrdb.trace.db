@@ -1,0 +1,4 @@
+2025-04-29 23:21:11.915246+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Valor demasiado largo para la columna "CONTENT CHARACTER VARYING(255)": "'{""text"":""https://www.temu.com/ul/kuiper/un2.html?_p_rfs=1&subj=un-search-web&_p... (599)"
+Value too long for column "CONTENT CHARACTER VARYING(255)": "'{""text"":""https://www.temu.com/ul/kuiper/un2.html?_p_rfs=1&subj=un-search-web&_p... (599)"; SQL statement:
+insert into qr_code (content,created_at,file_name,type,id) values (?,?,?,?,?) [22001-232]
