@@ -30,7 +30,7 @@ public class QrController {
 	@Autowired
 	private QrCodeRepository qrCodeRepository;
 
-
+	@CrossOrigin(origins = "https://misterqrgenerator.com")
 	@PostMapping(value = "/generate", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<QrResponse> generateQr(@RequestBody String text) throws WriterException, IOException {
 	    QrCode qrCode = qrService.generateAndSaveQr(text, "TEXT");
@@ -43,7 +43,7 @@ public class QrController {
 
 	    return ResponseEntity.ok(response);
 	}
-    
+	@CrossOrigin(origins = "https://misterqrgenerator.com")
 	@PostMapping(value = "/generate/url", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<QrResponse> generateQrFromUrl(@RequestBody String url) throws IOException, WriterException {
 	    QrCode qrCode = qrService.generateAndSaveQr(url, "URL");
@@ -57,7 +57,7 @@ public class QrController {
 	    return ResponseEntity.ok(response);
 	}
 
-    
+	@CrossOrigin(origins = "https://misterqrgenerator.com")
 	@PostMapping(value = "/generate/pdf", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<QrResponse> generateQrFromPdf(@RequestParam("file") MultipartFile file) throws IOException, WriterException {
 	    if (file.isEmpty() || !file.getOriginalFilename().endsWith(".pdf")) {
@@ -71,13 +71,14 @@ public class QrController {
 	    Files.write(pdfPath, file.getBytes());
 
 	    // Generar QR apuntando a la URL del PDF (simulada aquí como local)
-	    String pdfUrl = "http://localhost:8081/api/pdf/" + pdfName;
+	    String pdfUrl = "https://qrback-2.onrender.com/api/pdf/" + pdfName;
 	    QrCode qrCode = qrService.generateAndSaveQr(pdfUrl, "PDF");
 
 	    String imageUrl = "https://qrback-2.onrender.com/api/qr/view/" + qrCode.getId();
 	    QrResponse response = new QrResponse(qrCode.getId().toString(), imageUrl);
 	    return ResponseEntity.ok(response);
 	}
+	@CrossOrigin(origins = "https://misterqrgenerator.com")
 	@GetMapping(value = "/pdf/{filename}", produces = MediaType.APPLICATION_PDF_VALUE)
 	public ResponseEntity<byte[]> getPdf(@PathVariable String filename) throws IOException {
 	    Path filePath = Paths.get("pdfs/" + filename);
@@ -86,6 +87,7 @@ public class QrController {
 	    byte[] content = Files.readAllBytes(filePath);
 	    return ResponseEntity.ok(content);
 	}
+	@CrossOrigin(origins = "https://misterqrgenerator.com")
 	@GetMapping(value = "/download/{id}", produces = MediaType.IMAGE_PNG_VALUE)
 	public ResponseEntity<byte[]> downloadQrById(@PathVariable UUID id) throws IOException {
 	    QrCode qrCode = qrCodeRepository.findById(id).orElse(null);
